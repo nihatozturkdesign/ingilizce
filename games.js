@@ -15,7 +15,7 @@ function addXP(n){
   const before = levelInfo(S.xp).idx;
   S.xp += n;
   const after = levelInfo(S.xp);
-  if(after.idx > before) setTimeout(()=>toast("🎉 Seviye atladın: "+after.name+"!"), 900);
+  if(after.idx > before) setTimeout(()=>toast("🎉 Yeni unvan: "+after.name+"!"), 900);
   checkBadges(); save();
 }
 function streak(){
@@ -56,9 +56,9 @@ function checkBadges(){
 function xpBar(){
   const L = levelInfo(S.xp||0), st = streak();
   return `<div class="card" style="padding:12px 16px">
-    <div class="row"><b>🪵 ${esc(L.name)}</b><span class="sub">${S.xp||0} XP</span><span class="sp"></span><b>🔥 ${st} gün</b></div>
+    <div class="hint">Oyun puanın (İngilizce seviyenle ilgisi yok, sadece motivasyon için)</div><div class="row" style="margin-top:4px"><b>🪵 ${esc(L.name)}</b><span class="sub">${S.xp||0} puan</span><span class="sp"></span><b>🔥 ${st} gün</b></div>
     <div class="progress" style="margin-top:8px"><div style="width:${L.pct}%"></div></div>
-    <div class="hint" style="margin-top:4px">${L.next ? `${esc(L.next)} seviyesine ${L.toNext} XP kaldı` : "En üst seviyedesin!"}</div></div>`;
+    <div class="hint" style="margin-top:4px">${L.next ? `“${esc(L.next)}” unvanına ${L.toNext} puan kaldı` : "En üst unvandasın!"}</div></div>`;
 }
 function badgesView(){
   const B = APP_DATA.BADGES; const got = S.badges||{};
@@ -98,11 +98,12 @@ let G = null;
 function startGame(id){
   const D2 = APP_DATA;
   if(id==="quiz"){
+    // Sadece öğrendiğin kartlar; yeterli değilse 1. ayın ilk kelimeleri (ileri seviye kelimeler karışmasın)
     let pool = S.cards.filter(c=>c.status!=="new");
-    if(pool.length < 8) pool = S.cards.slice().sort((a,b)=>(a.order||0)-(b.order||0)).slice(0,40);
+    if(pool.length < 8) pool = pool.concat(S.cards.filter(c=>c.status==="new" && c.src==="deck").sort((a,b)=>(a.order||0)-(b.order||0)).slice(0, 20-pool.length));
     const qs = pick(pool, Math.min(10,pool.length)).map((c,i)=>{
       const rev = i%2===1;
-      const others = pick(S.cards.filter(x=>x.id!==c.id && x.tr!==c.tr), 3);
+      const others = pick(pool.filter(x=>x.id!==c.id && x.tr!==c.tr), 3);
       const opts = shuffle([c].concat(others));
       return {c, rev, opts:opts.map(o=>rev?o.en:o.tr), ans:opts.indexOf(c)};
     });
@@ -125,7 +126,7 @@ function startGame(id){
     const qs = pick(D2.PAIRS,10).map(p=>({p, target: Math.random()<.5?0:1}));
     G = {id, qs, i:0, score:0, picked:null};
   }
-  render(); window.scrollTo(0,0);
+  view="play"; ST=null; render(); window.scrollTo(0,0);
   if(id==="dict") setTimeout(()=>speak(G.qs[0][0], .8),300);
   if(id==="pairs") setTimeout(()=>speak(G.qs[0].p[G.qs[0].target], .8),300);
 }
@@ -137,8 +138,7 @@ function endGame(total){
   if(!S.games) S.games = {};
   const g = S.games[G.id] || {played:0, best:0};
   g.played++; g.best = Math.max(g.best, G.score); S.games[G.id] = g;
-  dayLog().listen = dayLog().listen; // aktiviteyi bozmadan
-  dayLog().game = true; save();
+  dayLog().game = true; save(); did("game");
   G.done = {total, perfect};
 }
 function gameHeader(total){
@@ -280,7 +280,7 @@ document.addEventListener("click", e=>{
   switch(a){
     case "start": startGame(b.dataset.id); return;
     case "again": startGame(b.dataset.id); return;
-    case "quit": clearInterval(verbTimer); try{ recog&&recog.stop(); }catch(e){} G=null; render(); return;
+    case "quit": clearInterval(verbTimer); try{ recog&&recog.stop(); }catch(e){} G=null; view="play"; sub.play="games"; render(); return;
     case "pick": { const q=G.qs[G.i]; G.picked=k; if(k===q.ans) G.score++; else if(q.c.status!=="new"){ q.c.due=today(); save(); } speak(q.c.en); render(); return; }
     case "apick": { G.picked=k; if(k===+b.dataset.ans) G.score++; render(); return; }
     case "ppick": { const q=G.qs[G.i]; G.picked=k; if(k===q.target) G.score++; render(); return; }
@@ -304,14 +304,14 @@ document.addEventListener("click", e=>{
     case "sayretry": { if(G.res && G.res.score>=0.8) G.score--; G.res=null; render(); return; }
     case "saidok": G.score++; G.res={html:"",heard:"(sesli söylendi)",score:1}; render(); return;
     case "story": openStory(b.dataset.id); return;
-    case "closestory": ST=null; render(); return;
+    case "closestory": ST=null; view="play"; sub.play="stories"; render(); return;
     case "readall": { const s=APP_DATA.STORIES.find(x=>x.id===ST.id); speak(s.paras.join(" "), Math.max(.6,S.settings.rate-.1)); return; }
     case "readp": { const s=APP_DATA.STORIES.find(x=>x.id===ST.id); speak(s.paras[k], Math.max(.6,S.settings.rate-.1)); return; }
     case "word": { ST.word = {w:b.dataset.w, sent:b.dataset.s}; renderWordBar(); speak(b.dataset.w); return; }
     case "wordcard": { const w=ST.word; editCardId="new"; view="cards"; ST.prefill = w; render(); setTimeout(()=>{ $("#f_en").value=w.w; $("#f_ex").value=w.sent; const gl=APP_DATA.STORIES.find(x=>x.id===ST.id).gloss.find(g=>norm(g[0])===norm(w.w)); if(gl) $("#f_tr").value=gl[1]; $("#f_tr").focus(); },30); return; }
     case "sq": { const s=APP_DATA.STORIES.find(x=>x.id===ST.id); ST.ans[+b.dataset.q]=k; render(); return; }
     case "sfinish": { const s=APP_DATA.STORIES.find(x=>x.id===ST.id); const sc=s.qs.filter((q,i)=>ST.ans[i]===q[2]).length;
-      if(!S.stories) S.stories={}; const first=!S.stories[s.id]; S.stories[s.id]={date:today(),score:sc}; ST.result=sc; dayLog().story=true; addXP(first?15+sc*3:sc*2); render(); return; }
+      if(!S.stories) S.stories={}; const first=!S.stories[s.id]; S.stories[s.id]={date:today(),score:sc}; ST.result=sc; dayLog().story=true; addXP(first?15+sc*3:sc*2); did("story"); render(); return; }
     case "talkedit": TE = true; render(); return;
     case "talksave": { const m=+b.dataset.m; if(!S.talkOverride) S.talkOverride={}; S.talkOverride[m]=$("#talkEditIn").value.trim(); TE=false; save(); render(); toast("Metnin kaydedildi ✓"); return; }
     case "talkreset": { const m=+b.dataset.m; if(S.talkOverride) delete S.talkOverride[m]; TE=false; save(); render(); return; }
@@ -361,24 +361,21 @@ function renderWordBar(){
     ${card?`<p class="hint">✓ Bu kelime zaten kartlarında var.</p>`:`<button class="btn acc sm" data-g="wordcard">＋ Karta ekle</button>`}</div>`;
 }
 
-/* ================== OYNA SEKMESİ ================== */
+/* ================== OYNA (Pratik içinde) ================== */
 function vPlay(){
   if(ST) return vStory();
   if(G) return vGame();
-  const p = prog(); const wk = p.before?1:p.week;
-  const rec = APP_DATA.STORIES.find(s=>s.week===((wk-1)%APP_DATA.STORIES.length)+1);
-  return `<h1>Oyna</h1><p class="sub">Öğrenmenin eğlenceli kısmı. Her oyun XP kazandırır.</p>
-  ${xpBar()}
-  <h2>🎮 Oyunlar</h2>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">${GAMES.map(g=>{ const st=(S.games||{})[g.id];
-    return `<button class="card" style="margin:0;text-align:left;cursor:pointer;font:inherit;color:inherit" data-g="start" data-id="${g.id}">
-      <div style="font-size:30px">${g.ic}</div><b>${esc(g.name)}</b><div class="hint" style="margin-top:4px">${esc(g.desc)}</div>
-      ${st?`<div class="pill ok" style="margin-top:6px">En iyi: ${st.best}</div>`:""}</button>`; }).join("")}</div>
-  <h2>📖 Hikâyeler</h2>
-  <p class="sub">Kısa A2 hikâyeleri: dinle, oku, dokunduğun kelimeyi karta ekle. Bu haftanın hikâyesi: <b>${esc(rec.title)}</b></p>
+  const rec = weekStory();
+  if(sub.play==="stories") return `<button class="btn sm ghost back" data-nav="practice">← Pratik</button><h1>Hikâyeler</h1>
+  <p class="sub">Kısa A2 hikâyeleri: dinle, oku, dokunduğun kelimeyi karta ekle, 3 soruyu cevapla.</p>
   <div class="card list">${APP_DATA.STORIES.map(s=>{ const d=S.stories&&S.stories[s.id];
     return `<div class="it"><div class="t"><b>${esc(s.title)}</b><span class="sub">${s.level} · ${s.paras.join(" ").split(" ").length} kelime${s.id===rec.id?" · bu hafta":""}</span></div>
       ${d?`<span class="pill ok">✓ ${d.score}/${s.qs.length}</span>`:""}<button class="btn sm ${s.id===rec.id&&!d?"acc":""}" data-g="story" data-id="${s.id}">Oku</button></div>`; }).join("")}</div>`;
+  return `<button class="btn sm ghost back" data-nav="practice">← Pratik</button><h1>Oyunlar</h1><p class="sub">Her biri 2–5 dakika. Sadece öğrendiğin kelimeler ve A2 cümleleri gelir.</p>
+  <div class="tiles">${GAMES.map(g=>{ const st=(S.games||{})[g.id];
+    return `<button class="tile" data-g="start" data-id="${g.id}">
+      <div class="ti">${g.ic}</div><b>${esc(g.name)}</b><span>${esc(g.desc)}</span>
+      ${st?`<span class="pill ok" style="margin-top:6px;align-self:flex-start">En iyi: ${st.best}</span>`:""}</button>`; }).join("")}</div>`;
 }
 
 /* ================== İLK AÇILIŞ ================== */
@@ -405,20 +402,10 @@ function talkText(m){
   return t.replace(/\bNihat\b/g, S.settings.name || "Nihat");
 }
 
-/* Bugün ekranı için bonus öneri */
+/* Bugün ekranı için bonus öneri (plan bitince gösterilir) */
 function bonusCard(){
   const wd = parse(today()).getDay();
-  const pickId = ["story","build","pairs","article","dict","verbs","say"][wd];
-  const p = prog(); const wk = p.before?1:p.week;
-  const story = APP_DATA.STORIES.find(s=>s.week===((wk-1)%APP_DATA.STORIES.length)+1);
-  const playedToday = dayLog().game || dayLog().story;
-  if(pickId==="story"){
-    return `<div class="card task ${playedToday?"done":""}"><div class="ic">📖</div><div class="body"><h3>Bonus (5 dk): Hikâye</h3>
-      <div class="sub">Bu haftanın hikâyesi: <b>${esc(story.title)}</b>. Dinle, oku, 3 soruyu cevapla.</div>
-      <button class="btn sm" style="margin-top:8px" data-g="story" data-id="${story.id}">Oku</button></div></div>`;
-  }
+  const pickId = ["build","quiz","pairs","article","dict","verbs","say"][wd];
   const g = GAMES.find(x=>x.id===pickId);
-  return `<div class="card task ${playedToday?"done":""}"><div class="ic">${g.ic}</div><div class="body"><h3>Bonus (5 dk): ${esc(g.name)}</h3>
-    <div class="sub">${esc(g.desc)}</div>
-    <div class="row wrap" style="margin-top:8px"><button class="btn sm" data-g="start" data-id="${g.id}" onclick="view='play'">Oyna</button><button class="btn sm ghost" data-g="story" data-id="${story.id}">📖 ${esc(story.title)}</button></div></div></div>`;
+  return `<div class="card"><div class="hint">İstersen bonus (5 dk)</div><div class="row" style="margin-top:6px"><div style="font-size:28px">${g.ic}</div><div class="sp"><b>${esc(g.name)}</b><div class="sub">${esc(g.desc)}</div></div><button class="btn sm" data-g="start" data-id="${g.id}">Oyna</button></div></div>`;
 }

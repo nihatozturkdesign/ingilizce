@@ -225,33 +225,34 @@ WRITE_PROMPTS: [
 ],
 
 RESOURCES: [
- {group:"🎧 Dinleme (işte, kulaklıkla)", items:[
-  {name:"ELLLO Podcast", url:"https://elllo.org/podcast/C1POD/", desc:"Başlangıç bölümleri: Todd yavaş ve net konuşuyor. 1.–2. ay için ideal."},
-  {name:"ELLLO — A2 dersleri", url:"https://elllo.org/levels/index-A2-1.htm", desc:"Kısa konuşmalar + metin + quiz. Perşembe yoğun dinleme."},
-  {name:"ELLLO — B1 dersleri", url:"https://elllo.org/levels/index-B1-1.htm", desc:"3. aydan itibaren."},
-  {name:"BBC 6 Minute English", url:"https://www.bbc.co.uk/learningenglish", desc:"6 dakikalık bölümler, ücretsiz metinli. Orta seviye (3. aydan itibaren)."},
+ {group:"🎧 Dinleme (1.–2. ay, A2)", listen:true, items:[
+  {name:"ELLLO A2 dersleri", url:"https://elllo.org/levels/index-A2-1.htm", desc:"Kısa konuşmalar: ses + metin + quiz. Ana dinleme kaynağın."},
+  {name:"British Council A2 dinleme", url:"https://learnenglish.britishcouncil.org/free-resources/listening/a2", desc:"Günlük hayattan kısa dinlemeler, alıştırmalı."},
+  {name:"ELLLO Beginner Podcast", url:"https://podcasts.apple.com/podcast/id1813490486", desc:"Podcasts uygulamasında açılır. Yavaş ve net."}
+ ]},
+ {group:"🎧 Dinleme (3. aydan itibaren, B1)", listen:true, items:[
+  {name:"6 Minute English (BBC)", url:"https://podcasts.apple.com/podcast/id262026947", desc:"6 dakikalık bölümler. Podcasts uygulamasında açılır."},
+  {name:"ELLLO B1 dersleri", url:"https://elllo.org/levels/index-B1-1.htm", desc:"Biraz daha uzun konuşmalar, metinli."},
+  {name:"BBC Learning English", url:"https://www.bbc.co.uk/learningenglish", desc:"6 Minute English metinleri ve daha fazlası."},
   {name:"BBC Office English", url:"https://www.bbc.co.uk/learningenglish/english/features/office-english", desc:"İş İngilizcesi (4. aydan itibaren)."}
  ]},
  {group:"🎬 Video", items:[
-  {name:"Easy English", url:"https://easy-languages.org/easy-english", desc:"Sokak röportajları, İngilizce altyazılı. Cuma video günü."}
+  {name:"Easy English", url:"https://www.easyenglish.video/", desc:"Sokak röportajları, İngilizce altyazılı. Cuma video günü."}
  ]},
- {group:"📘 Gramer & okuma", items:[
-  {name:"British Council — A1–A2 Grammar", url:"https://learnenglish.britishcouncil.org/free-resources/grammar/a1-a2", desc:"Kısa test + açıklama + alıştırma. Hesap açmaya gerek yok."},
-  {name:"British Council — B1–B2 Grammar", url:"https://learnenglish.britishcouncil.org/free-resources/grammar/b1-b2", desc:"4. aydan itibaren."},
-  {name:"British Council LearnEnglish", url:"https://learnenglish.britishcouncil.org/", desc:"A2 dinleme, okuma, hikâyeler (Story zone)."}
+ {group:"📘 Gramer", items:[
+  {name:"British Council — A1–A2 Grammar", url:"https://learnenglish.britishcouncil.org/free-resources/grammar/a1-a2", desc:"Kısa test + açıklama + alıştırma. Hesap gerekmez."},
+  {name:"British Council — B1–B2 Grammar", url:"https://learnenglish.britishcouncil.org/free-resources/grammar/b1-b2", desc:"4. aydan itibaren."}
  ]},
  {group:"🗣️ Telaffuz & sözlük", items:[
-  {name:"YouGlish", url:"https://youglish.com/", desc:"Bir kelimenin gerçek insanlar tarafından YouTube'da nasıl söylendiğini duy."},
+  {name:"YouGlish", url:"https://youglish.com/", desc:"Bir kelimenin gerçek insanlar tarafından nasıl söylendiğini duy."},
   {name:"Cambridge Dictionary (İng–Tr)", url:"https://dictionary.cambridge.org/dictionary/english-turkish/", desc:"Ücretsiz sözlük, sesli telaffuz."}
  ]},
  {group:"📏 Seviye testi", items:[
-  {name:"EF SET", url:"https://www.efset.org/", desc:"Ücretsiz, okuma + dinleme, CEFR sonucu. 1. hafta, 3. ay ve 6. ay."},
-  {name:"British Council seviye testi", url:"https://learnenglish.britishcouncil.org/test-your-english", desc:"Ücretsiz, alternatif test."}
+  {name:"EF SET", url:"https://www.efset.org/", desc:"Ücretsiz, okuma + dinleme, CEFR sonucu. 1. hafta, 3. ay ve 6. ay."}
  ]},
- {group:"🤖 Ücretsiz yapay zekâ (düzeltme + konuşma)", items:[
-  {name:"Claude", url:"https://claude.ai/", desc:"Ücretsiz planla da kullanılabilir. Uygulamadaki 'Kopyala' butonlarıyla hazır komutu yapıştır."},
-  {name:"ChatGPT", url:"https://chatgpt.com/", desc:"Ücretsiz, sesli mod ile konuşma pratiği."},
-  {name:"Gemini", url:"https://gemini.google.com/", desc:"Ücretsiz alternatif."}
+ {group:"🤖 Ücretsiz yapay zekâ", items:[
+  {name:"Claude", url:"https://claude.ai/", desc:"Uygulamadaki 'Kopyala' butonlarıyla hazır komutu yapıştır."},
+  {name:"ChatGPT", url:"https://chatgpt.com/", desc:"Sesli mod ile konuşma pratiği."}
  ]}
 ]
 };
