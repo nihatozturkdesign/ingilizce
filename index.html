@@ -84,6 +84,10 @@ nav button.on{color:var(--ink);font-weight:700}
 nav button.on .i{filter:none;opacity:1}
 .tabs{display:flex;gap:4px;background:var(--soft);padding:4px;border-radius:12px;margin:10px 0 4px;overflow-x:auto}
 .tabs button{flex:1;border:0;background:none;font:inherit;font-size:14px;font-weight:600;padding:8px 10px;border-radius:9px;color:var(--mute);white-space:nowrap;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 6px}
+.chips button{border:1px solid var(--line,rgba(0,0,0,.12));background:var(--card);font:inherit;font-size:13px;font-weight:600;padding:6px 11px;border-radius:999px;color:var(--mute);cursor:pointer}
+.chips button.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.lv{font-size:11px;font-weight:700;padding:1px 7px;border-radius:999px;background:var(--soft);color:var(--mute);margin-right:6px;vertical-align:1px;white-space:nowrap}
 .tabs button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
 .back{margin:0 0 4px -8px}
 /* Pratik merkezi */
@@ -146,9 +150,9 @@ hr{border:0;border-top:1px solid var(--line);margin:14px 0}
 <main id="main"></main>
 <nav><div class="in" id="nav"></div></nav>
 <div class="toast" id="toast"></div>
-<script src="data.js?v=4"></script>
-<script src="data2.js?v=4"></script>
-<script src="games.js?v=4"></script>
+<script src="data.js?v=5"></script>
+<script src="data2.js?v=5"></script>
+<script src="games.js?v=5"></script>
 <script>
 "use strict";
 /* ================== YARDIMCILAR ================== */
@@ -284,7 +288,34 @@ const L = {
   office:   ["BBC Office English","https://www.bbc.co.uk/learningenglish/english/features/office-english"],
   easy:     ["Easy English (video)","https://www.easyenglish.video/"]
 };
+/* Kaynak kütüphanesi (data.js RESOURCES). Seviye: A2, A2–B1, B1 */
+function lvFor(month){ month=month||1; return month<=2?["A2","A2–B1"]:month<=4?["A2","A2–B1","B1"]:["A2–B1","B1"]; }
+function pickRes(skills, n, avoid=[]){
+  const p=prog(), lv=lvFor(p.month);
+  const pool=D.RESOURCES.filter(g=>skills.includes(g.skill)).flatMap(g=>g.items).filter(i=>lv.includes(i.lv)&&!avoid.includes(i.url));
+  return pool.length ? pool[((n%pool.length)+pool.length)%pool.length] : null;
+}
+function vRes(){
+  if(!resF.lv) resF.lv = (prog().month||1)<=3 ? "A2" : "B1";
+  const skills=[["all","Hepsi"],["pod","🎙️ Podcast"],["listen","🎧 Dinleme"],["video","📺 Video"],["read","📖 Okuma"],["speak","🗣️ Konuşma"],["write","✍️ Yazma"],["vocab","📚 Kelime & gramer"],["test","📏 Test & AI"]];
+  const lvs=[["A2","A2 (şimdi)"],["B1","B1 (3. aydan)"],["all","Tüm seviyeler"]];
+  const ok=i=>resF.lv==="all"||i.lv===resF.lv||i.lv==="A2–B1";
+  const groups=D.RESOURCES.filter(g=>resF.skill==="all"||g.skill===resF.skill).map(g=>({...g,items:g.items.filter(ok)})).filter(g=>g.items.length);
+  const n=groups.reduce((a,g)=>a+g.items.length,0);
+  return `<h1>Kaynaklar</h1><p class="sub">Hepsi ücretsiz ve linkleri kontrol edildi. Beceri ve seviye seç; her gün birini dene, sıkılırsan başkasına geç.</p>
+  <div class="chips">${skills.map(([k,t])=>`<button data-resk="${k}" class="${resF.skill===k?"on":""}">${t}</button>`).join("")}</div>
+  <div class="tabs">${lvs.map(([k,t])=>`<button data-resl="${k}" class="${resF.lv===k?"on":""}">${t}</button>`).join("")}</div>
+  <p class="hint">${n} kaynak gösteriliyor.</p>`
+  + groups.map(g=>`<h2>${esc(g.group)}</h2>${g.note?`<p class="sub">${esc(g.note)}</p>`:""}<div class="card list">${g.items.map(i=>`<div class="it"><div class="t"><b>${esc(i.name)}</b><span class="sub"><span class="lv">${esc(i.lv)}</span>${esc(i.desc)}</span></div><a class="btn sm" href="${i.url}" target="_blank" rel="noopener" ${g.listen?'data-ext="listen"':""}>Aç ↗</a></div>`).join("")}</div>`).join("")
+  + `<p class="hint" style="margin-top:14px">Not: Podcast linkleri iPhone'da Podcasts uygulamasında, YouTube linkleri YouTube uygulamasında açılır.</p>`;
+}
 function listenPlan(month){
+  const lp = listenPlanBase(month);
+  const p = prog(); const x = pickRes(["pod","listen","video"], (p.dayN||1), lp.links.map(l=>l[1]));
+  if(x) lp.links.push(["✨ Bugünün önerisi: "+x.name, x.url]);
+  return lp;
+}
+function listenPlanBase(month){
   if(month<=2) return {title:"Kısa bir dinleme (A2)", time:"10–20 dk, işte kulaklıkla",
     text:"ELLLO A2 listesinden bir ders seç: kısa bir konuşma, altında metni ve quiz'i var. Önce metne bakmadan dinle, sonra metinle bir kez daha. Hepsini anlaman gerekmiyor.",
     links:[L.ellloA2, L.bcA2, L.ellloBeg]};
@@ -312,7 +343,8 @@ function eveningTask(d=today()){
       : {ic:"🗣️", title:"Konuşma: shadowing", steps:["Ayın metnini 'Yavaş dinle' ile dinle.","Metne bakarak sesle aynı anda konuş (3 tur).","4. turda kaydet ve kendini dinle."], links:[], auto:["record"], autoTxt:"Kaydı saklayınca işaretlenir.", action:{label:"Konuş'a git", go:"speak"}};
     case 3: return {ic:"✍️", title:"Yazma", steps:[`Konu: “${prompt}”`, "3–5 cümle yaz (sözlüğe bakmadan dene).","İstersen 'Düzeltme iste' ile yapay zekâya kontrol ettir, sonra kaydet."], links:[], auto:["write"], autoTxt:"Yazını kaydedince işaretlenir.", action:{label:"Yazmaya başla", go:"write:prompt"}};
     case 4: return {ic:"🎧", title:"Dikkatli dinleme", steps:["Bu haftanın hikâyesini önce dinle, sonra oku.","3 soruyu cevapla.",`İstersen ek olarak ${elllo[0]} listesinden bir ders.`], links:[elllo], auto:["story","ext"], autoTxt:"Hikâyenin sorularını bitirince işaretlenir.", action:{label:"Hikâyeyi aç", go:"weekstory"}};
-    case 5: return {ic:"🎬", title:"Video", steps:["Easy English'ten kısa bir sokak röportajı izle (İngilizce altyazıyla).","Beğendiğin 1–3 kalıbı kart olarak ekle."], links:[L.easy], auto:["card"], autoTxt:"Kendi kartını ekleyince işaretlenir.", action:{label:"Kart ekle", go:"addcard"}};
+    case 5: { const v = pickRes(["video"], p.week) || {name:"Easy English", url:L.easy[1]};
+      return {ic:"🎬", title:"Video", steps:[`Bu haftanın kanalı: ${v.name}. Kısa bir video izle (İngilizce altyazıyla).`,"Beğendiğin 1–3 kalıbı kart olarak ekle.","Başka kanal istersen: Pratik › Kaynaklar › Video."], links:[[v.name, v.url]], auto:["card"], autoTxt:"Kendi kartını ekleyince işaretlenir.", action:{label:"Kart ekle", go:"addcard"}}; }
     case 6: return {ic:"🎤", title:"Sunum günü", steps:[`Ayın metni: “${talk.title}”. 2 kez yüksek sesle oku.`,"Metne bakmadan anlatmayı dene ve kaydet.","İstersen yapay zekâyla 10 dk sesli konuş."], links:[], auto:["record"], autoTxt:"Kaydı saklayınca işaretlenir.", action:{label:"Konuş'a git", go:"speak"}};
     default: {
       const steps = ["Haftalık değerlendirmeyi doldur (2 dk, 3 kısa soru).","İstersen İngilizce altyazılı bir şey izle."];
@@ -434,6 +466,7 @@ const codePrompt = (w,tr) => `"${w}" (${tr}) İngilizce kelimesi için Türk bir
 /* ================== GÖRÜNÜMLER ================== */
 // view: today | cards | practice | play | learn | me   (play/learn/practice = "Pratik" sekmesi)
 let view = "today", sub = {learn:"grammar", practice:"home", me:"progress", play:"games"};
+let resF = {skill:"all", lv:null};
 let editCardId = null, openTopic = null, writeCtx = null, cardFilter = "all", cardSearch = "";
 const NAV = [["today","🏠","Bugün"],["cards","🗂️","Kelimeler"],["practice","🎯","Pratik"],["me","📈","İlerleme"]];
 const inPractice = () => view==="practice" || view==="play" || view==="learn";
@@ -648,12 +681,12 @@ function vPractice(){
     ${tile("write","✍️","Yaz","3–5 cümle yaz, yapay zekâya düzelttir")}
     ${tile("speak","🎤","Konuş","Sunum metni, ses kaydı, shadowing")}
     ${tile("errors","📕","Hata defteri",S.errors.length+" kayıtlı hata")}
-    ${tile("res","🔗","Kaynaklar","Podcast, video, sözlük, test")}
+    ${tile("res","🔗","Kaynaklar","90 ücretsiz kaynak: podcast, video, okuma, yazma")}
   </div>
   <div style="text-align:center;margin-top:14px"><button class="btn link" data-go="plan">🗺️ 6 aylık plana bak</button></div>`;
 }
 function vLearn(){
-  if(sub.learn==="res") return backBtn() + `<h1>Kaynaklar</h1><p class="sub">Hepsi ücretsiz. 🎧 Podcast linkleri iPhone'da Podcasts uygulamasında açılır.</p>` + D.RESOURCES.map(g=>`<h2>${esc(g.group)}</h2><div class="card list">${g.items.map(i=>`<div class="it"><div class="t"><b>${esc(i.name)}</b><span class="sub">${esc(i.desc)}</span></div><a class="btn sm" href="${i.url}" target="_blank" rel="noopener" ${g.listen?'data-ext="listen"':""}>Aç ↗</a></div>`).join("")}</div>`).join("");
+  if(sub.learn==="res") return backBtn() + vRes();
   if(sub.learn==="plan") return backBtn() + `<h1>6 aylık plan</h1>` + vPlan();
   const p = prog(); const cur = p.before ? 1 : p.week; const curM = p.before ? 1 : p.month;
   const ST2 = ["Başlanmadı","Çalıştım","Kullandım","Oturdu ✓"];
@@ -852,6 +885,8 @@ document.addEventListener("click", async e=>{
   if(d.tick){ const l=dayLog(); if(l[d.tick]){ l[d.tick]=false; save(); render(); } else { markDone(d.tick); render(); } return; }
   if(d.rate!==undefined){ rate(+d.rate); window.scrollTo(0,0); return; }
   if(d.filter){ cardFilter=d.filter; render(); return; }
+  if(d.resk){ resF.skill=d.resk; render(); return; }
+  if(d.resl){ resF.lv=d.resl; render(); return; }
   if(d.edit){ editCardId=d.edit; render(); window.scrollTo(0,0); return; }
   if(d.gstat){ const before=S.grammar[d.gstat]||0; S.grammar[d.gstat]=(before+1)%4; openTopic=d.gstat; save(); render(); return; }
   if(d.timer!==undefined){ startTimer(+d.timer); return; }

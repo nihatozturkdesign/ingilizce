@@ -225,34 +225,110 @@ WRITE_PROMPTS: [
 ],
 
 RESOURCES: [
- {group:"🎧 Dinleme (1.–2. ay, A2)", listen:true, items:[
-  {name:"ELLLO A2 dersleri", url:"https://elllo.org/levels/A2-English-Lessons/index.html", desc:"Kısa konuşmalar: ses + metin + quiz. Ana dinleme kaynağın."},
-  {name:"British Council A2 dinleme", url:"https://learnenglish.britishcouncil.org/free-resources/listening/a2", desc:"Günlük hayattan kısa dinlemeler, alıştırmalı."},
-  {name:"ELLLO Beginner Podcast", url:"https://podcasts.apple.com/podcast/id1813490486", desc:"Podcasts uygulamasında açılır. Yavaş ve net."}
+ {group:"🎙️ Podcastler", skill:"pod", listen:true, note:"iPhone'da Podcasts uygulamasında açılır. Takip et, yeni bölümler kendiliğinden gelsin.", items:[
+  {lv:"A2", name:"ELLLO Beginner English Podcast", url:"https://podcasts.apple.com/podcast/id1813490486", desc:"Yavaş ve net, kısa bölümler. Başlangıç için ilk tercih."},
+  {lv:"A2", name:"Learning Easy English (BBC)", url:"https://podcasts.apple.com/podcast/id1742967932", desc:"BBC'nin en kolay seviyesi. Günlük konular, yavaş konuşma."},
+  {lv:"A2", name:"Simple English News Daily", url:"https://podcasts.apple.com/podcast/id1505603790", desc:"Her gün birkaç dakikalık basit İngilizce haber."},
+  {lv:"A2", name:"English in a Minute (VOA)", url:"https://podcasts.apple.com/podcast/id1524074416", desc:"1 dakikalık bölümler: tek bir kalıp ya da deyim."},
+  {lv:"A2–B1", name:"Easy Stories in English", url:"https://podcasts.apple.com/podcast/id1448201565", desc:"Seviyeli hikâyeler (Ariel Goodbody). Metinleri sitesinde ücretsiz."},
+  {lv:"A2–B1", name:"Listening Time: English Practice", url:"https://podcasts.apple.com/podcast/id1556878879", desc:"Kısa dinleme alıştırmaları, günlük hayat."},
+  {lv:"A2–B1", name:"Learn English with Bob the Canadian", url:"https://podcasts.apple.com/podcast/id1498325643", desc:"Sakin, yavaş, net konuşan bir öğretmen. Çok sevilir."},
+  {lv:"A2–B1", name:"Learn English with Coffee Break English", url:"https://podcasts.apple.com/podcast/id1500388439", desc:"Adım adım ders formatı, açıklamalı."},
+  {lv:"B1", name:"6 Minute English (BBC)", url:"https://podcasts.apple.com/podcast/id262026947", desc:"6 dakikada bir konu ve 6 yeni kelime. Klasik."},
+  {lv:"B1", name:"Learning English Conversations (BBC)", url:"https://podcasts.apple.com/podcast/id262026989", desc:"Günlük konuşma kalıpları, kısa bölümler."},
+  {lv:"B1", name:"American Stories (VOA)", url:"https://podcasts.apple.com/podcast/id1524310725", desc:"Klasik Amerikan hikâyeleri, yavaş okunmuş."},
+  {lv:"B1", name:"Espresso English Podcast", url:"https://podcasts.apple.com/podcast/id957223102", desc:"Kısa, pratik ipuçları: kelime, gramer, kalıp."},
+  {lv:"B1", name:"Culips Everyday English", url:"https://podcasts.apple.com/podcast/id279999557", desc:"Doğal günlük konuşmalar ve açıklamaları."},
+  {lv:"B1", name:"Speak English Now", url:"https://podcasts.apple.com/podcast/id1216879060", desc:"Konuşmaya odaklı, anlaşılır anlatım."},
+  {lv:"B1", name:"Learn English Through Listening", url:"https://podcasts.apple.com/podcast/id1134891957", desc:"Dinleyerek öğrenme, sakin İngiliz aksanı."},
+  {lv:"B1", name:"English Learning for Curious Minds", url:"https://podcasts.apple.com/podcast/id1489301603", desc:"İlginç konular (tarih, bilim). 5.–6. ay için."},
+  {lv:"B1", name:"Luke's English Podcast", url:"https://podcasts.apple.com/podcast/id312059190", desc:"1000+ bölüm, eğlenceli. Uzun ve doğal; 5.–6. ay için."},
+  {lv:"B1", name:"All Ears English", url:"https://podcasts.apple.com/podcast/id751574016", desc:"Doğal Amerikan İngilizcesi, günlük konuşma. 5.–6. ay."},
+  {lv:"B1", name:"Business English (All Ears English)", url:"https://podcasts.apple.com/podcast/id1650591741", desc:"İş İngilizcesi: toplantı, e-posta, sunum."}
  ]},
- {group:"🎧 Dinleme (3. aydan itibaren, B1)", listen:true, items:[
-  {name:"6 Minute English (BBC)", url:"https://podcasts.apple.com/podcast/id262026947", desc:"6 dakikalık bölümler. Podcasts uygulamasında açılır."},
-  {name:"ELLLO B1 dersleri", url:"https://elllo.org/levels/B1-English-Lessons/index.html", desc:"Biraz daha uzun konuşmalar, metinli."},
-  {name:"BBC Learning English", url:"https://www.bbc.co.uk/learningenglish", desc:"6 Minute English metinleri ve daha fazlası."},
-  {name:"BBC Office English", url:"https://www.bbc.co.uk/learningenglish/english/features/office-english", desc:"İş İngilizcesi (4. aydan itibaren)."}
+ {group:"🎧 Dinleme siteleri (metinli)", skill:"listen", listen:true, note:"Ses + metin + quiz. Önce metinsiz dinle, sonra metinle.", items:[
+  {lv:"A2", name:"ELLLO A1 dersleri", url:"https://elllo.org/levels/A1-English-Lessons/index.html", desc:"En kolay seviye. Zorlandığın gün buraya dön."},
+  {lv:"A2", name:"ELLLO A2 dersleri", url:"https://elllo.org/levels/A2-English-Lessons/index.html", desc:"Kısa konuşmalar: ses + metin + quiz. Ana kaynağın."},
+  {lv:"A2", name:"ELLLO A2 videoları (1 dakika)", url:"https://elllo.org/video/A2BEG/index.htm", desc:"1 dakikalık videolar, farklı aksanlar."},
+  {lv:"A2", name:"British Council A2 dinleme", url:"https://learnenglish.britishcouncil.org/free-resources/listening/a2", desc:"Günlük hayattan dinlemeler, alıştırmalı."},
+  {lv:"A2", name:"BBC Real Easy English", url:"https://www.bbc.co.uk/learningenglish/english/features/real-easy-english", desc:"BBC'nin kolay seviye bölümleri, metinli."},
+  {lv:"A2–B1", name:"Listen A Minute", url:"https://listenaminute.com/", desc:"Yüzlerce konu, her biri 1 dakika. Metin + alıştırma."},
+  {lv:"A2–B1", name:"ESL Fast", url:"https://www.eslfast.com/", desc:"Binlerce kısa hikâye ve diyalog, sesli. Çok geniş arşiv."},
+  {lv:"A2–B1", name:"Randall's ESL Cyber Listening Lab", url:"https://www.esl-lab.com/", desc:"Kolay/orta/zor seviyeli dinlemeler ve quizler."},
+  {lv:"A2–B1", name:"VOA Learning English", url:"https://learningenglish.voanews.com/", desc:"Yavaş okunan haberler, Level 1–2 dersleri, metinli."},
+  {lv:"B1", name:"British Council B1 dinleme", url:"https://learnenglish.britishcouncil.org/free-resources/listening/b1", desc:"Biraz daha uzun dinlemeler, alıştırmalı."},
+  {lv:"B1", name:"ELLLO B1 dersleri", url:"https://elllo.org/levels/B1-English-Lessons/index.html", desc:"Daha uzun konuşmalar, metinli."},
+  {lv:"B1", name:"BBC 6 Minute English (metinli)", url:"https://www.bbc.co.uk/learningenglish/english/features/6-minute-english", desc:"Podcast'in metinli ve kelime listeli hâli."},
+  {lv:"B1", name:"BBC The English We Speak", url:"https://www.bbc.co.uk/learningenglish/english/features/the-english-we-speak", desc:"Her bölümde bir günlük deyim, 3 dakika."},
+  {lv:"B1", name:"BBC Office English", url:"https://www.bbc.co.uk/learningenglish/english/features/office-english", desc:"İş İngilizcesi (4. aydan itibaren)."},
+  {lv:"B1", name:"BBC Learning English (ana sayfa)", url:"https://www.bbc.co.uk/learningenglish", desc:"Tüm BBC dersleri ve seriler."},
+  {lv:"B1", name:"TED", url:"https://www.ted.com/", desc:"Kısa konuşmalar, İngilizce altyazı ve metin (transcript). 6. ay."}
  ]},
- {group:"🎬 Video", items:[
-  {name:"Easy English", url:"https://www.easyenglish.video/", desc:"Sokak röportajları, İngilizce altyazılı. Cuma video günü."}
+ {group:"📺 YouTube kanalları", skill:"video", listen:true, note:"Altyazıyı İngilizce aç. Hızı 0.75x yapabilirsin.", items:[
+  {lv:"A2", name:"Comprehensible English", url:"https://www.youtube.com/@ComprehensibleEnglish", desc:"Resimlerle çok yavaş anlatım. A2 için ideal."},
+  {lv:"A2", name:"English Easy Practice", url:"https://www.youtube.com/@EnglishEasyPractice", desc:"Yavaş okunan kısa hikâyeler, altyazılı."},
+  {lv:"A2–B1", name:"Learn English with Bob the Canadian", url:"https://www.youtube.com/@LearnEnglishwithBobtheCanadian", desc:"Yavaş, net, günlük hayat. Çok anlaşılır."},
+  {lv:"A2–B1", name:"Easy English", url:"https://www.youtube.com/@EasyEnglishVideo", desc:"Sokak röportajları, çift altyazı. Cuma video günü."},
+  {lv:"A2–B1", name:"Ariel Goodbody (Easy Stories)", url:"https://www.youtube.com/@ArielGoodbody", desc:"Seviyeli hikâyeler, kolay anlatım."},
+  {lv:"A2–B1", name:"VOA Learning English", url:"https://www.youtube.com/@VOALearningEnglish", desc:"Let's Learn English dersleri ve yavaş haberler."},
+  {lv:"A2–B1", name:"BBC Learning English", url:"https://www.youtube.com/@bbclearningenglish", desc:"Gramer, kelime, telaffuz; kısa videolar."},
+  {lv:"B1", name:"English with Lucy", url:"https://www.youtube.com/@EnglishwithLucy", desc:"Kelime ve telaffuz, İngiliz aksanı."},
+  {lv:"B1", name:"Speak English With Vanessa", url:"https://www.youtube.com/@SpeakEnglishWithVanessa", desc:"Günlük konuşma ve doğal kalıplar."},
+  {lv:"B1", name:"mmmEnglish", url:"https://www.youtube.com/@mmmEnglish_Emma", desc:"Telaffuz ve konuşma, net anlatım."},
+  {lv:"B1", name:"Learn English with Harry", url:"https://www.youtube.com/@learnenglishwithharry", desc:"İş İngilizcesi ve deyimler, yavaş anlatım."},
+  {lv:"B1", name:"English Speaking Success", url:"https://www.youtube.com/@EnglishSpeakingSuccess", desc:"Akıcı konuşma ve özgüven."},
+  {lv:"B1", name:"Learn English With TV Series", url:"https://www.youtube.com/@LearnEnglishWithTVSeries", desc:"Dizi ve film sahneleriyle dinleme."},
+  {lv:"B1", name:"Rachel's English", url:"https://www.youtube.com/@rachelsenglish", desc:"Amerikan aksanı ve telaffuz detayları."},
+  {lv:"B1", name:"TED-Ed", url:"https://www.youtube.com/@teded", desc:"5 dakikalık animasyonlu dersler, ilginç konular. 6. ay."},
+  {lv:"A2–B1", name:"Easy English (site)", url:"https://www.easyenglish.video/", desc:"Kanalın sitesi: bölüm listesi."}
  ]},
- {group:"📘 Gramer", items:[
-  {name:"British Council — A1–A2 Grammar", url:"https://learnenglish.britishcouncil.org/free-resources/grammar/a1-a2", desc:"Kısa test + açıklama + alıştırma. Hesap gerekmez."},
-  {name:"British Council — B1–B2 Grammar", url:"https://learnenglish.britishcouncil.org/free-resources/grammar/b1-b2", desc:"4. aydan itibaren."}
+ {group:"📖 Okuma", skill:"read", note:"Günde 1 kısa metin yeter. Bilmediğin 3 kelimeyi karta ekle.", items:[
+  {lv:"A2", name:"British Council A1 okuma", url:"https://learnenglish.britishcouncil.org/free-resources/reading/a1", desc:"Çok kısa metinler: ilan, mesaj, e-posta."},
+  {lv:"A2", name:"British Council A2 okuma", url:"https://learnenglish.britishcouncil.org/free-resources/reading/a2", desc:"Günlük metinler + anlama soruları."},
+  {lv:"A2", name:"News in Levels", url:"https://www.newsinlevels.com/", desc:"Aynı haber 3 seviyede. Level 1–2 ile başla. Sesli."},
+  {lv:"A2", name:"Breaking News English", url:"https://breakingnewsenglish.com/", desc:"Haberler 7 seviyede (0–6). Level 1–3 sana uygun."},
+  {lv:"A2", name:"Easy Stories in English (site)", url:"https://easystoriesinenglish.com/", desc:"Seviyeli hikâyelerin tam metni, sesli."},
+  {lv:"A2–B1", name:"ESL Fast hikâyeleri", url:"https://www.eslfast.com/", desc:"Kısa hikâyeler, her biri sesli. Çok fazla metin."},
+  {lv:"A2–B1", name:"Storynory", url:"https://www.storynory.com/", desc:"Sesli masallar ve hikâyeler, metinli."},
+  {lv:"A2–B1", name:"Simple English Wikipedia", url:"https://simple.wikipedia.org/", desc:"Wikipedia'nın basit İngilizce hâli. Tasarım konularını oku."},
+  {lv:"B1", name:"British Council B1 okuma", url:"https://learnenglish.britishcouncil.org/free-resources/reading/b1", desc:"Daha uzun metinler + sorular."},
+  {lv:"B1", name:"VOA Learning English (haberler)", url:"https://learningenglish.voanews.com/", desc:"Basit İngilizce haber metinleri, sesli."}
  ]},
- {group:"🗣️ Telaffuz & sözlük", items:[
-  {name:"YouGlish", url:"https://youglish.com/", desc:"Bir kelimenin gerçek insanlar tarafından nasıl söylendiğini duy."},
-  {name:"Cambridge Dictionary (İng–Tr)", url:"https://dictionary.cambridge.org/dictionary/english-turkish/", desc:"Ücretsiz sözlük, sesli telaffuz."}
+ {group:"🗣️ Konuşma & telaffuz", skill:"speak", note:"Uygulamadaki Konuş bölümüyle birlikte kullan: dinle, taklit et, kaydet.", items:[
+  {lv:"A2", name:"British Council A2 konuşma", url:"https://learnenglish.britishcouncil.org/free-resources/speaking/a2", desc:"Günlük durumlar için kalıplar ve videolar."},
+  {lv:"A2–B1", name:"BBC Telaffuz dersleri", url:"https://www.bbc.co.uk/learningenglish/english/features/pronunciation", desc:"Kısa telaffuz videoları (sesler, vurgu)."},
+  {lv:"A2–B1", name:"YouGlish", url:"https://youglish.com/", desc:"Bir kelimeyi gerçek videolarda nasıl söylendiğini dinle."},
+  {lv:"A2–B1", name:"Speechling", url:"https://speechling.com/", desc:"Cümle kaydet, gerçek öğretmen düzeltsin. Ücretsiz kota."},
+  {lv:"A2–B1", name:"ChatGPT sesli mod", url:"https://chatgpt.com/", desc:"Sesli sohbet: 'Speak slowly, A2 level' de."},
+  {lv:"B1", name:"British Council B1 konuşma", url:"https://learnenglish.britishcouncil.org/free-resources/speaking/b1", desc:"Toplantı, fikir belirtme, kibar istekler."},
+  {lv:"B1", name:"Tandem", url:"https://www.tandem.net/", desc:"Türkçe öğrenen biriyle karşılıklı konuşma (ücretsiz)."},
+  {lv:"B1", name:"Conversation Exchange", url:"https://www.conversationexchange.com/", desc:"Dil değişimi partneri bul (yazılı ya da sesli)."}
  ]},
- {group:"📏 Seviye testi", items:[
-  {name:"EF SET", url:"https://www.efset.org/", desc:"Ücretsiz, okuma + dinleme, CEFR sonucu. 1. hafta, 3. ay ve 6. ay."}
+ {group:"✍️ Yazma", skill:"write", note:"Kısa yaz, düzelttir, hatayı Hata Defteri'ne ekle.", items:[
+  {lv:"A2", name:"British Council A2 yazma", url:"https://learnenglish.britishcouncil.org/free-resources/writing/a2", desc:"Örnek e-posta, mesaj ve not; alıştırmalı."},
+  {lv:"A2–B1", name:"Write & Improve (Cambridge)", url:"https://writeandimprove.com/", desc:"Yaz, anında seviyeni ve hatalarını göstersin. Ücretsiz."},
+  {lv:"A2–B1", name:"LanguageTool", url:"https://languagetool.org/", desc:"Yazdığın İngilizceyi kontrol eder. Ücretsiz sürüm yeter."},
+  {lv:"A2–B1", name:"Journaly", url:"https://journaly.com/", desc:"Günlük yaz, ana dili İngilizce olanlar düzeltsin."},
+  {lv:"A2–B1", name:"Claude", url:"https://claude.ai/", desc:"Uygulamadaki 'Düzeltme iste' komutunu yapıştır."},
+  {lv:"B1", name:"British Council B1 yazma", url:"https://learnenglish.britishcouncil.org/free-resources/writing/b1", desc:"İş e-postası, rapor, şikâyet mektubu örnekleri."}
  ]},
- {group:"🤖 Ücretsiz yapay zekâ", items:[
-  {name:"Claude", url:"https://claude.ai/", desc:"Uygulamadaki 'Kopyala' butonlarıyla hazır komutu yapıştır."},
-  {name:"ChatGPT", url:"https://chatgpt.com/", desc:"Sesli mod ile konuşma pratiği."}
+ {group:"📚 Kelime & gramer", skill:"vocab", note:"Gramer kısa, pratik uzun olsun.", items:[
+  {lv:"A2", name:"British Council A1–A2 gramer", url:"https://learnenglish.britishcouncil.org/free-resources/grammar/a1-a2", desc:"Kısa test + açıklama + alıştırma."},
+  {lv:"A2", name:"British Council A1–A2 kelime", url:"https://learnenglish.britishcouncil.org/free-resources/vocabulary/a1-a2", desc:"Konulara göre kelimeler, alıştırmalı."},
+  {lv:"A2–B1", name:"Test-English", url:"https://test-english.com/", desc:"Seviyene göre gramer, okuma, dinleme, yazma alıştırmaları."},
+  {lv:"A2–B1", name:"Agenda Web", url:"https://agendaweb.org/", desc:"Binlerce kısa alıştırma, konu konu."},
+  {lv:"A2–B1", name:"Perfect English Grammar", url:"https://www.perfect-english-grammar.com/", desc:"Net açıklamalar ve alıştırmalar."},
+  {lv:"A2–B1", name:"Oxford 3000 kelime listesi", url:"https://www.oxfordlearnersdictionaries.com/wordlists/oxford3000-5000", desc:"En önemli 3000 kelime, seviyeleriyle."},
+  {lv:"A2–B1", name:"Cambridge Sözlük (İng–Tr)", url:"https://dictionary.cambridge.org/dictionary/english-turkish/", desc:"Ücretsiz sözlük, sesli telaffuz."},
+  {lv:"A2–B1", name:"Duolingo", url:"https://www.duolingo.com/", desc:"Otobüste 5 dk ek tekrar için (ücretsiz)."},
+  {lv:"A2–B1", name:"Anki", url:"https://apps.ankiweb.net/", desc:"Ek kelime kartları (web ve Android ücretsiz)."},
+  {lv:"A2–B1", name:"Quizlet", url:"https://quizlet.com/", desc:"Hazır kelime setleri, ücretsiz."},
+  {lv:"B1", name:"British Council B1–B2 gramer", url:"https://learnenglish.britishcouncil.org/free-resources/grammar/b1-b2", desc:"4. aydan itibaren."}
+ ]},
+ {group:"📏 Test & yapay zekâ", skill:"test", items:[
+  {lv:"A2–B1", name:"EF SET", url:"https://www.efset.org/", desc:"Ücretsiz seviye testi. 1. hafta, 3. ay ve 6. ay."},
+  {lv:"A2–B1", name:"Claude", url:"https://claude.ai/", desc:"Uygulamadaki 'Kopyala' butonlarıyla hazır komutu yapıştır."},
+  {lv:"A2–B1", name:"ChatGPT", url:"https://chatgpt.com/", desc:"Sesli mod ile konuşma pratiği."}
  ]}
 ]
 };
