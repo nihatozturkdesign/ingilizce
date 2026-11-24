@@ -226,13 +226,13 @@ WRITE_PROMPTS: [
 
 RESOURCES: [
  {group:"🎧 Dinleme (1.–2. ay, A2)", listen:true, items:[
-  {name:"ELLLO A2 dersleri", url:"https://elllo.org/levels/index-A2-1.htm", desc:"Kısa konuşmalar: ses + metin + quiz. Ana dinleme kaynağın."},
+  {name:"ELLLO A2 dersleri", url:"https://elllo.org/levels/A2-English-Lessons/index.html", desc:"Kısa konuşmalar: ses + metin + quiz. Ana dinleme kaynağın."},
   {name:"British Council A2 dinleme", url:"https://learnenglish.britishcouncil.org/free-resources/listening/a2", desc:"Günlük hayattan kısa dinlemeler, alıştırmalı."},
   {name:"ELLLO Beginner Podcast", url:"https://podcasts.apple.com/podcast/id1813490486", desc:"Podcasts uygulamasında açılır. Yavaş ve net."}
  ]},
  {group:"🎧 Dinleme (3. aydan itibaren, B1)", listen:true, items:[
   {name:"6 Minute English (BBC)", url:"https://podcasts.apple.com/podcast/id262026947", desc:"6 dakikalık bölümler. Podcasts uygulamasında açılır."},
-  {name:"ELLLO B1 dersleri", url:"https://elllo.org/levels/index-B1-1.htm", desc:"Biraz daha uzun konuşmalar, metinli."},
+  {name:"ELLLO B1 dersleri", url:"https://elllo.org/levels/B1-English-Lessons/index.html", desc:"Biraz daha uzun konuşmalar, metinli."},
   {name:"BBC Learning English", url:"https://www.bbc.co.uk/learningenglish", desc:"6 Minute English metinleri ve daha fazlası."},
   {name:"BBC Office English", url:"https://www.bbc.co.uk/learningenglish/english/features/office-english", desc:"İş İngilizcesi (4. aydan itibaren)."}
  ]},
